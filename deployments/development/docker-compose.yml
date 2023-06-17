@@ -1,0 +1,21 @@
+version: "3"
+services:
+  kids-postgres-service:
+    image: postgres:12.4
+    restart: always
+    container_name: "${PROJECT_NAME}-postgres"
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+    ports:
+      - ${DB_PORT}:5432
+
+
+  redis-service:
+    image: redis:6.0.9-alpine
+    container_name: "${PROJECT_NAME}-kids"
+    expose:
+      - 6379
+
+
