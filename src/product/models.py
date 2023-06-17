@@ -21,6 +21,7 @@ class ProductCategory(models.Model):
         verbose_name_plural = _("Product Categories")
         ordering = ("id",)
         db_table = "product_category"
+        indexes = models.Index(fields=['name', 'description'])
 
     def delete(self, *args):
         self.deleted_at = timezone.now()
@@ -108,6 +109,11 @@ class Product(models.Model):
         verbose_name_plural = _("Products")
         ordering = ("id",)
         db_table = "product"
+        indexes = [
+            models.Index(fields=["sku"]),
+            models.Index(fields=["name"]),
+            models.Index(fields=["price"]),
+        ]
 
     def delete(self, *args):
         self.deleted_at = timezone.now()
