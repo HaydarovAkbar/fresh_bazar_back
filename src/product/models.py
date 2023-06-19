@@ -9,7 +9,7 @@ class ProductCategory(models.Model):
     description = models.TextField(_("Product Category Description"))
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
-    image_url = models.URLField(_("Product Category Image URL"), upload_to="static/images/product_category")
+    image_url = models.ImageField(_("Product Category Image URL"), upload_to="product_category")
     deleted_at = models.DateTimeField(null=True, blank=True)
     state = models.ForeignKey("info.State", on_delete=models.CASCADE)
 
@@ -21,7 +21,10 @@ class ProductCategory(models.Model):
         verbose_name_plural = _("Product Categories")
         ordering = ("id",)
         db_table = "product_category"
-        indexes = models.Index(fields=['name', 'description'])
+        indexes = [
+            models.Index(fields=["name"]),
+            models.Index(fields=["description"]),
+        ]
 
     def delete(self, *args):
         self.deleted_at = timezone.now()
@@ -95,7 +98,7 @@ class Product(models.Model):
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
-    image_url = models.URLField(_("Product Image URL"), upload_to="static/images/product", null=True)
+    image_url = models.ImageField(_("Product Image URL"), upload_to="product", null=True)
     product_category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE, null=True)
     discount = models.ForeignKey(Discount, on_delete=models.CASCADE, null=True)

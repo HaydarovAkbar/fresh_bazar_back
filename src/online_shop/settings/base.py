@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9xg7p5!gb8at0e80^e70lqf@sy!35u(v&emoqk7)t(z2f+7v#l'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -48,7 +50,7 @@ DEV_APPS = [
     'account',
 ]
 
-INSTALLED_APPS = BASE_APPS
+INSTALLED_APPS = BASE_APPS + DEV_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -105,18 +107,37 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'uz'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
 
 USE_TZ = True
 
+CORS_ALLOW_METHODS = [
+    '*'
+]
+
+CORS_ALLOW_HEADERS = [
+    '*'
+]
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -179,13 +200,12 @@ JAZZMIN_SETTINGS = {
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
 
         # external url that opens in a new window (Permissions can be added)
-        {"name": "Support", "url": "https://github.com/HaydarovAkbar", "new_window": True},
+        {"name": "Support", "url": "http://198.199.91.147:5050/", "new_window": True},
 
         # model admin to link to (Permissions checked against model)
         {"model": "auth.User"},
 
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"product": "product.ProductCategory"},
     ],
 
     #############
@@ -256,7 +276,7 @@ JAZZMIN_SETTINGS = {
     # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
     # Whether to show the UI customizer on the sidebar
-    "show_ui_builder": False,
+    "show_ui_builder": True,
 
     ###############
     # Change view #
@@ -272,5 +292,11 @@ JAZZMIN_SETTINGS = {
     "changeform_format_overrides": {"product.Product": "vertical_tabs", "auth.user": "collapsible",
                                     "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
-    # "language_chooser": True,
+    "language_chooser": True,
+    # Add a skin chooser into the admin
+    "skin_chooser": True,
+    # Add a responsive width toggle to the admin
+    "responsive_width": True,
+    # Add a logout button to the user menu
+    "user_logout": True,
 }
