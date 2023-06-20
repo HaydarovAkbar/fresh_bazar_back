@@ -42,6 +42,7 @@ BASE_APPS = [
 
 DEV_APPS = [
     'rest_framework',
+    'django_filters',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
     'info',
@@ -60,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'account.middleware.middlewares.SqlInectionMiddleware',
 ]
 
 ROOT_URLCONF = 'online_shop.urls'
@@ -292,11 +295,11 @@ JAZZMIN_SETTINGS = {
     "changeform_format_overrides": {"product.Product": "vertical_tabs", "auth.user": "collapsible",
                                     "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
-    "language_chooser": True,
+    # "language_chooser": True,
     # Add a skin chooser into the admin
     "skin_chooser": True,
     # Add a responsive width toggle to the admin
-    "responsive_width": True,
+    # "responsive_width": True,
     # Add a logout button to the user menu
-    "user_logout": True,
+    # "user_logout": True,
 }

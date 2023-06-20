@@ -1,4 +1,4 @@
-export PROJECT_NAME="freshbazar"
+export PROJECT_NAME="fresh_bazar"
 export DJANGO_SETTINGS_MODULE="online_shop.settings.production"
 export DB_NAME=""
 export DB_HOST=""

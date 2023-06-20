@@ -1,4 +1,3 @@
-from decouple import config
 from .base import *
 
 env_type = config('ENV_NAME')
