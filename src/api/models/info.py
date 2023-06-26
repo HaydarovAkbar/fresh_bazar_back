@@ -9,6 +9,10 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "States"
+        db_table = "states"
+
 
 class Language(models.Model):
     name = models.CharField(max_length=50)
@@ -17,6 +21,10 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = "Languages"
+        db_table = "languages"
 
 
 class Country(models.Model):
@@ -30,6 +38,10 @@ class Country(models.Model):
     def __str__(self):
         return self.shortname
 
+    class Meta:
+        verbose_name_plural = "Countries"
+        db_table = "countries"
+
 
 class Region(models.Model):
     shortname = models.CharField(max_length=50)
@@ -42,6 +54,10 @@ class Region(models.Model):
     def __str__(self):
         return self.shortname
 
+    class Meta:
+        verbose_name_plural = "Regions"
+        db_table = "regions"
+
 
 class District(models.Model):
     shortname = models.CharField(max_length=50)
@@ -53,3 +69,20 @@ class District(models.Model):
 
     def __str__(self):
         return self.shortname
+
+    class Meta:
+        verbose_name_plural = "Districts"
+        db_table = "districts"
+
+
+class PaymentType(models.Model):
+    name = models.CharField(max_length=50)
+    date_of_created = models.DateTimeField(auto_now_add=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Payment Types"
+        db_table = "payment_types"

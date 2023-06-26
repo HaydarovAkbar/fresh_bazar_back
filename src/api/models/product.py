@@ -6,6 +6,7 @@ from .discount import Discount
 from .category import ProductCategory
 from api.models.info import State
 
+
 class ProductInventory(models.Model):
     quantity = models.IntegerField(_("Product Inventory Quantity"), default=0)
     date_of_created = models.DateTimeField(auto_now_add=True)

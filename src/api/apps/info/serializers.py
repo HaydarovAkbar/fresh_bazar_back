@@ -14,11 +14,11 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state_id')
+        validated_data['state_id'] = self.context['request'].data.get('state')
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state_id')
+        validated_data['state_id'] = self.context['request'].data.get('state')
         return super().update(instance, validated_data)
 
 
@@ -28,11 +28,11 @@ class DistrictSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state_id')
+        validated_data['state_id'] = self.context['request'].data.get('state')
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state_id')
+        validated_data['state_id'] = self.context['request'].data.get('state')
         return super().update(instance, validated_data)
 
 
@@ -42,9 +42,29 @@ class RegionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state_id')
+        validated_data['state_id'] = self.context['request'].data.get('state')
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state_id')
+        validated_data['state_id'] = self.context['request'].data.get('state')
+        return super().update(instance, validated_data)
+
+
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = info.Language
+        fields = '__all__'
+
+
+class PaymentTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = info.PaymentType
+        fields = '__all__'
+
+    def create(self, validated_data):
+        validated_data['state_id'] = self.context['request'].data.get('state')
+        return super().create(validated_data)
+
+    def update(self, instance, validated_data):
+        validated_data['state_id'] = self.context['request'].data.get('state')
         return super().update(instance, validated_data)

@@ -16,4 +16,4 @@ class Organization(models.Model):
         verbose_name = _("Organization")
         verbose_name_plural = _("Organizations")
         ordering = ("id",)
-        db_table = "organization"
+        db_table = "organizations"
