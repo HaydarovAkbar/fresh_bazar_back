@@ -10,6 +10,15 @@ class State(models.Model):
         return self.name
 
 
+class Language(models.Model):
+    name = models.CharField(max_length=50)
+    abbreviation = models.CharField(max_length=2)
+    date_of_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Country(models.Model):
     shortname = models.CharField(max_length=20)
     fullname = models.CharField(max_length=50)
