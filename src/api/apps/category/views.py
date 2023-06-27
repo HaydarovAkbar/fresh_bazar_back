@@ -7,7 +7,6 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 
-# Create your views here.
 class ProductCategoryView(APIView):
     def get(self, request):
         category = ProductCategory.objects.all()

@@ -15,4 +15,9 @@ router = routers.DefaultRouter()
 
 
 # Category
-router.register(r'category', category.CategoryView, basename='category-api')
+router.register(r'category', category.ProductCategoryView, basename='category-api')
+
+
+urlpatterns = [
+    path('', include(router.urls)),
+]

@@ -41,6 +41,7 @@ BASE_APPS = [
 ]
 
 DEV_APPS = [
+    'drf_yasg',
     'rest_framework',
     'django_filters',
     'django_elasticsearch_dsl',
