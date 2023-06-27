@@ -1,26 +1,21 @@
 from django.shortcuts import render
-from .serializers import StateSerializer, CountrySerializer, DistrictSerializer, RegionSerializer
-from api.models.info import State, Country, District, Region
+from .serializers import ProductCategorySerializer
+from api.models.category import ProductCategory
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
 
 
 # Create your views here.
+class ProductCategoryView(APIView):
+    def get(self, request):
+        category = ProductCategory.objects.all()
+        serializer = ProductCategorySerializer(category, many=True)
+        return Response(serializer.data)
 
-class StateViewSet(viewsets.ModelViewSet):
-    queryset = State.objects.all()
-    serializer_class = StateSerializer
-
-
-class CountryViewSet(viewsets.ModelViewSet):
-    queryset = Country.objects.all()
-    serializer_class = CountrySerializer
-
-
-class DistrictViewSet(viewsets.ModelViewSet):
-    queryset = District.objects.all()
-    serializer_class = DistrictSerializer
-
-
-class RegionViewSet(viewsets.ModelViewSet):
-    queryset = Region.objects.all()
-    serializer_class = RegionSerializer
+    def post(self, request):
+        serializer = ProductCategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
