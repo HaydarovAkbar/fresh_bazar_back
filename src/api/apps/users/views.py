@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from .serializers import UserSerializers
-from api.filter import UserFilter
+from api.filters import UserFilter
 from api.pagination import DefaultPagination
 
 from django_filters.rest_framework import DjangoFilterBackend

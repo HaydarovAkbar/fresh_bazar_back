@@ -18,6 +18,4 @@ router = routers.DefaultRouter()
 router.register(r'category', category.ProductCategoryView, basename='category-api')
 
 
-urlpatterns = [
-    path('', include(router.urls)),
-]
+urlpatterns = router.urls
