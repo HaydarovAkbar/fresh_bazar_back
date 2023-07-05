@@ -23,7 +23,7 @@ def decrypt(key, message):
     return decrypted_data
 
 
-class CustomModalViewSet(viewsets.ModelViewSet):
+class UserView(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializers
     pagination_class = DefaultPagination

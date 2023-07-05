@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
-
+HOST = config('HOST')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -46,10 +46,12 @@ DEV_APPS = [
     'django_filters',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
-    'api',
 ]
+PROJECT_APPS = [
+    'api',
+    ]
 
-INSTALLED_APPS = BASE_APPS + DEV_APPS
+INSTALLED_APPS = BASE_APPS + DEV_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -154,7 +156,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # --------------------- ELASTICSEARCH SETTINGS ------------------------------- #
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': 'localhost:8000',
+        'hosts': 'localhost:9200',
         'timeout': 10,
     },
 }

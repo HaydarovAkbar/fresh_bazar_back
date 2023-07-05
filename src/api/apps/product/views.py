@@ -5,25 +5,41 @@ from django_elasticsearch_dsl_drf.filter_backends import (
     FilteringFilterBackend,
     SearchFilterBackend,
 )
+from rest_framework.filters import SearchFilter
+from rest_framework.parsers import MultiPartParser
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
-from api.models.product import Product
-from ... import documents
-from .serializers import ProductSerializer
+from api.models.product import Product, ProductInventory
+from api import documents
+from .serializers import ProductSerializer, ProductInventorySerializer
+from api.pagination import DefaultPagination
 
-
-class ProductViewSet(DocumentViewSet):
-    document = documents.ProductDocument
+class ProductView(viewsets.ModelViewSet):
+    # document = documents.ProductDocument
+    queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    lookup_field = 'id'
-    filter_backends = [
-        FilteringFilterBackend,
-        SearchFilterBackend,
-    ]
+    pagination_class = DefaultPagination
+    # lookup_field = 'id'
+    # filter_backends = [
+    #     FilteringFilterBackend,
+    #     SearchFilterBackend,
+    # ]
     search_fields = (
         'name',
         'description',
+        'price',
     )
-    filter_fields = {
-        'name': 'name.raw',
-    }
-    queryset = Product.objects.all()
+    # filter_fields = {
+    #     'name': 'name.raw',
+    # }
+    filter_backends = [SearchFilter]
+    # permission_classes = AllowAny
+    parser_classes = (MultiPartParser,)
+    http_method_names = ['get', 'post', 'put', 'delete']
+
+
+class ProductInventoryView(viewsets.ModelViewSet):
+    queryset = ProductInventory.objects.all()
+    serializer_class = ProductInventorySerializer
+    # permission_classes = AllowAny
+    parser_classes = (MultiPartParser,)
+    http_method_names = ['get', 'post', 'put', 'delete']

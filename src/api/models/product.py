@@ -33,10 +33,13 @@ class ProductInventory(models.Model):
         return True
 
 
+
+
 class Product(models.Model):
     name = models.CharField(_("Product Name"), max_length=50)
     description = models.TextField(_("Product Description"), null=True, blank=True)
     price = models.DecimalField(_("Product Price"), max_digits=10, decimal_places=2)
+    uuid = models.UUIDField(_("Product UUID"), unique=True, editable=False, auto_created=True, null=True)
     sku = models.CharField(_("Product SKU"), max_length=50)
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)

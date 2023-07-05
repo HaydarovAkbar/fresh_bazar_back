@@ -1,50 +1,19 @@
 from rest_framework import serializers
-from ...models import info
+from ...models import discount
 
 
-class StateSerializer(serializers.ModelSerializer):
+class DiscountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = info.State
+        model = discount.Discount
         fields = '__all__'
 
-
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = info.State
-        fields = '__all__'
-
-    def create(self, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state')
-        return super().create(validated_data)
-
-    def update(self, instance, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state')
-        return super().update(instance, validated_data)
-
-
-class DistrictSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = info.State
-        fields = '__all__'
-
-    def create(self, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state')
-        return super().create(validated_data)
-
-    def update(self, instance, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state')
-        return super().update(instance, validated_data)
-
-
-class RegionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = info.State
-        fields = '__all__'
-
-    def create(self, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state')
-        return super().create(validated_data)
-
-    def update(self, instance, validated_data):
-        validated_data['state_id'] = self.context['request'].data.get('state')
-        return super().update(instance, validated_data)
+    def to_representation(self, instance):
+        return {
+            'name': instance.name,
+            'description': instance.description,
+            'discount_percent' : instance.discount_percent,
+            'date_of_created': instance.date_of_created,
+            'updated_at': instance.updated_at,
+            'state': instance.state.name,
+            'state_id': instance.state.id,
+        }
