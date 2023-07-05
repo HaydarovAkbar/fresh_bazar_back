@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .serializers import ProductCategorySerializer
+from rest_framework.filters import SearchFilter
 from api.models.category import ProductCategory
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -25,6 +26,8 @@ from rest_framework.parsers import MultiPartParser
 class ProductCategoryView(viewsets.ModelViewSet):
     queryset = ProductCategory.objects.all()
     serializer_class = ProductCategorySerializer
+    filter_backends = [SearchFilter]
     # permission_classes = AllowAny
     parser_classes = (MultiPartParser,)
     http_method_names = ['get', 'post', 'put', 'delete']
+    search_fields = ['name', 'description']

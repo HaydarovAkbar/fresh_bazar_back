@@ -151,12 +151,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# --------------------- ELASTICSEARCH SETTINGS ------------------------------- #
 ELASTICSEARCH_DSL = {
     'default': {
         'hosts': 'localhost:8000',
         'timeout': 10,
     },
 }
+
+# --------------------- JAZZMIN SETTINGS -------------------------------------- #
 
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
@@ -306,4 +309,39 @@ JAZZMIN_SETTINGS = {
     # "responsive_width": True,
     # Add a logout button to the user menu
     # "user_logout": True,
+}
+
+# Your stuff...
+# --------------------------------- REDIS AND CELERY SETTINGS -----------------------------#
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:7999",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "site"
+    }
+}
+
+CACHE_TTL = 60 * 15
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = '7999'
+CELERY_BROKER_URL = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
+CELERY_RESULT_BACKEND = "redis://" + REDIS_HOST + ":" + REDIS_PORT + "/0"
+accept_content = ['application/json']
+task_serializer = 'json'
+result_serializer = 'json'
+broker_connection_retry_on_startup = True
+broker_transport_options = {'visibility_timeout': 60 * 60}
+timezone = 'Asia/Tashkent'
+task_always_eager = True
+
+# --------------------------------- REST_FRAMEWORK SETTINGS -----------------------------#
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['rest_framework.filters.SearchFilter'],
+    'SEARCH_PARAM': 'search',
 }

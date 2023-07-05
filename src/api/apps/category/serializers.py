@@ -19,8 +19,9 @@ class ProductCategorySerializer(serializers.ModelSerializer):
         return {
             'id': instance.id,
             'name': instance.name,
+            'description': instance.description,
             'state': instance.state.name,
             'state_id': instance.state.id,
-            'created_at': instance.created_at,
+            'date_of_created': instance.date_of_created,
             'updated_at': instance.updated_at,
         }
