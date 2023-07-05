@@ -33,8 +33,6 @@ class ProductInventory(models.Model):
         return True
 
 
-
-
 class Product(models.Model):
     name = models.CharField(_("Product Name"), max_length=50)
     description = models.TextField(_("Product Description"), null=True, blank=True)

@@ -1,5 +1,4 @@
 from .base import *
-import os
 from decouple import config
 
 env = config('ENV_NAME')
