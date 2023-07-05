@@ -12,10 +12,17 @@ from api.apps.users import views as users
 
 
 router = routers.DefaultRouter()
+info_router = routers.DefaultRouter()
 
-
-# Category
+# Category api urls
 router.register(r'category', category.ProductCategoryView, basename='category-api')
 
+# info api urls
+info_router.register(r'state', info.StateView, basename='state-api')
+info_router.register(r'country', info.CountryView, basename='country-api')
+info_router.register(r'district', info.DistrictView, basename='district-api')
+info_router.register(r'region', info.RegionView, basename='region-api')
 
-urlpatterns = router.urls
+
+
+urlpatterns = router.urls + info_router.urls

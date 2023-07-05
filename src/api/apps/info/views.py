@@ -8,12 +8,15 @@ from rest_framework.parsers import MultiPartParser
 
 # Create your views here.
 
-class StateViewSet(viewsets.ModelViewSet):
+class StateView(viewsets.ModelViewSet):
     queryset = State.objects.all()
     serializer_class = StateSerializer
+    # permission_classes = AllowAny
+    parser_classes = (MultiPartParser,)
+    http_method_names = ['get', 'post', 'put', 'delete']
 
 
-class CountryViewSet(viewsets.ModelViewSet):
+class CountryView(viewsets.ModelViewSet):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
     filter_backends = [SearchFilter]
@@ -23,7 +26,7 @@ class CountryViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description']
 
 
-class DistrictViewSet(viewsets.ModelViewSet):
+class DistrictView(viewsets.ModelViewSet):
     queryset = District.objects.all()
     serializer_class = DistrictSerializer
     filter_backends = [SearchFilter]
@@ -33,7 +36,7 @@ class DistrictViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description']
 
 
-class RegionViewSet(viewsets.ModelViewSet):
+class RegionView(viewsets.ModelViewSet):
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
     filter_backends = [SearchFilter]
