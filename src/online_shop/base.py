@@ -49,11 +49,12 @@ DEV_APPS = [
 ]
 PROJECT_APPS = [
     'api',
-    ]
+]
 
 INSTALLED_APPS = BASE_APPS + DEV_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
