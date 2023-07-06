@@ -7,6 +7,7 @@ from api.models.info import State
 class Discount(models.Model):
     name = models.CharField(_("Discount Name"), max_length=50)
     description = models.TextField(_("Discount Description"))
+    value = models.DecimalField(_("Discount Value"), max_digits=10, decimal_places=2)
     discount_percent = models.DecimalField(_("Discount Percent"), max_digits=5, decimal_places=2)
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from rest_framework import serializers
-from api.models.product import Product, ProductInventory
+from api.models.product import Product, ProductInventory, TopProduct
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -37,13 +37,13 @@ class ProductSerializer(serializers.ModelSerializer):
                 'date_of_created': instance.date_of_created,
                 'updated_at': instance.updated_at,
                 'image_url': instance.get_image_url,
-                'product_category': instance.product_category.name,
-                'product_inventory': instance.product_inventory.quantity,
+                'product_category_name': instance.product_category.name,
+                'product_inventory_name': instance.product_inventory.quantity,
                 'discount': instance.discount,
-                'state': instance.state.name,
-                'state_id': instance.state.id,
-                'product_category_id': instance.product_category.id,
-                'product_inventory_id': instance.product_inventory.id,
+                'state_name': instance.state.name,
+                'state': instance.state.id,
+                'product_category': instance.product_category.id,
+                'product_inventory': instance.product_inventory.id,
             }
 
 
@@ -59,4 +59,27 @@ class ProductInventorySerializer(serializers.ModelSerializer):
             'date_of_created': instance.date_of_created,
             'updated_at': instance.updated_at,
             'deleted_at': instance.deleted_at,
+        }
+
+
+class TopProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TopProduct
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        if instance.state_id == 2:
+            return {}
+        return {
+            'id': instance.id,
+            'product_name': instance.product.name,
+            'date_of_created': instance.date_of_created,
+            'state': instance.state.id,
+            'state_name': instance.state.name,
+            'product': instance.product.id,
+            'image_url': instance.product.get_image_url,
+            'price': instance.product.price,
+            'discount': instance.product.discount.id,
+            'discount_name': instance.product.discount.name,
+            'discount_value': instance.product.discount.value,
         }
