@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from api.models.info import State
 
 
 class News(models.Model):
@@ -8,7 +9,7 @@ class News(models.Model):
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     image_url = models.ImageField(upload_to="news")
-    state = models.ForeignKey('info.State', on_delete=models.CASCADE)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title

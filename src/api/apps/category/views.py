@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from .serializers import ProductCategorySerializer
 from rest_framework.filters import SearchFilter
 from api.models.category import ProductCategory

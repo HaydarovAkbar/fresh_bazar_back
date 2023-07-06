@@ -1,25 +1,16 @@
 from datetime import datetime
 
 from rest_framework import serializers
-from api.models.product import Product, ProductInventory
+from api.models.news import News
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class NewsSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Product
+        model = News
         fields = '__all__'
-
-    # def create(self, validated_data):
-    #     validated_data['state_id'] = self.context['request'].data.get('state')
-    #     return super().create(validated_data)
-    #
-    # def update(self, instance, validated_data):
-    #     validated_data['state_id'] = self.context['request'].data.get('state')
-    #     return super().update(instance, validated_data)
 
     def destroy(self, instance):
         instance.state_id = 2
-        instance.deleted_at = datetime.now()
         instance.save()
         return instance
 
@@ -29,34 +20,11 @@ class ProductSerializer(serializers.ModelSerializer):
         else:
             return {
                 'id': instance.id,
-                'uuid': instance.uuid,
-                'name': instance.name,
+                'title': instance.title,
                 'description': instance.description,
-                'price': instance.price,
-                'sku': instance.sku,
                 'date_of_created': instance.date_of_created,
                 'updated_at': instance.updated_at,
                 'image_url': instance.get_image_url,
-                'product_category': instance.product_category.name,
-                'product_inventory': instance.product_inventory.quantity,
-                'discount': instance.discount,
-                'state': instance.state.name,
-                'state_id': instance.state.id,
-                'product_category_id': instance.product_category.id,
-                'product_inventory_id': instance.product_inventory.id,
+                'state_name': instance.state.name,
+                'state': instance.state.id,
             }
-
-
-class ProductInventorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductInventory
-        fields = '__all__'
-
-    def to_representation(self, instance):
-        return {
-            'id': instance.id,
-            'quantity': instance.quantity,
-            'date_of_created': instance.date_of_created,
-            'updated_at': instance.updated_at,
-            'deleted_at': instance.deleted_at,
-        }
