@@ -24,6 +24,7 @@ class News(models.Model):
             models.Index(fields=["description"], name="news_description_idx"),
         ]
 
+    @property
     def get_image_url(self):
         # "Returns the image url."
         try:

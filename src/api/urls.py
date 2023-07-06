@@ -38,4 +38,4 @@ user_router.register(r'users', users.UserView, basename='user-api')
 # news api urls
 news_router.register(r'news', news.NewsView, basename='news-api')
 
-urlpatterns = router.urls + info_router.urls + product_router.urls + user_router.urls
+urlpatterns = router.urls + info_router.urls + product_router.urls + user_router.urls + news_router.urls
