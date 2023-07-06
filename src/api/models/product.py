@@ -74,3 +74,9 @@ class Product(models.Model):
             return '%s%s' % (settings.HOST, self.image_url.url)
         except ValueError:
             return ''
+
+
+class TopProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date_of_created = models.DateTimeField(auto_now_add=True)
+
