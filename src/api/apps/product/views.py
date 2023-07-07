@@ -13,6 +13,7 @@ from api import documents
 from .serializers import ProductSerializer, ProductInventorySerializer, TopProductSerializer
 from api.pagination import DefaultPagination
 
+
 class ProductView(viewsets.ModelViewSet):
     # document = documents.ProductDocument
     queryset = Product.objects.all()
