@@ -73,7 +73,7 @@ class TopProductSerializer(serializers.ModelSerializer):
             'product': instance.product.id,
             'image_url': instance.product.get_image_url,
             'price': instance.product.price,
-            'discount': instance.product.discount.id,
-            'discount_name': instance.product.discount.name,
-            'discount_value': instance.product.discount.value,
+            'discount': instance.product.discount.id if instance.product.discount else None,
+            'discount_name': instance.product.discount.name if instance.product.discount else None,
+            'discount_value': instance.product.discount.value if instance.product.discount else None,
         }
