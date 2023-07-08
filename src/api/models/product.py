@@ -14,7 +14,7 @@ class ProductInventory(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.quantity
+        return str(self.quantity)
 
     class Meta:
         verbose_name = _("Product Inventory")
