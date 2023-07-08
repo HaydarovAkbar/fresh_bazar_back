@@ -4,7 +4,7 @@ from api.models.organizations import Organization
 from api.models.product import ProductInventory, Product, TopProduct
 from api.models.category import ProductCategory
 from api.models.discount import Discount
-from api.models.news import News
+from api.models.news import News, Banner
 
 admin.site.site_header = 'help admin panel'
 admin.site.register(State)
@@ -19,3 +19,4 @@ admin.site.register(ProductInventory)
 admin.site.register(TopProduct)
 admin.site.register(Discount)
 admin.site.register(News)
+admin.site.register(Banner)

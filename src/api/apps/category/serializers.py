@@ -18,3 +18,4 @@ class ProductCategorySerializer(serializers.ModelSerializer):
             'updated_at': instance.updated_at,
             'image_url': instance.get_image_url,
         }
+

@@ -32,7 +32,7 @@ class ProductSerializer(serializers.ModelSerializer):
                 'product_category_name': instance.product_category.name,
                 'product_inventory_name': instance.product_inventory.quantity,
                 'discount': instance.discount.id if instance.discount else None,
-                'discount_name': instance.discount.name if instance.discount else None,\
+                'discount_name': instance.discount.name if instance.discount else None,
                 'discount_value': instance.discount.value if instance.discount else None,
                 'state_name': instance.state.name,
                 'state': instance.state.id,
