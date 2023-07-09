@@ -1,7 +1,5 @@
-from datetime import datetime
-
 from rest_framework import serializers
-from api.models.product import Product, ProductInventory, TopProduct
+from api.models.product import Product, ProductInventory, TopProduct, BestOffer
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -9,11 +7,11 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-    def destroy(self, instance):
-        instance.state_id = 2
-        instance.deleted_at = datetime.now()
-        instance.save()
-        return instance
+    # def destroy(self, instance):
+    #     instance.state_id = 2
+    #     instance.deleted_at = datetime.now()
+    #     instance.save()
+    #     return instance
 
     def to_representation(self, instance):
         if instance.state_id == 2:
@@ -76,4 +74,23 @@ class TopProductSerializer(serializers.ModelSerializer):
             'discount': instance.product.discount.id if instance.product.discount else None,
             'discount_name': instance.product.discount.name if instance.product.discount else None,
             'discount_value': instance.product.discount.value if instance.product.discount else None,
+        }
+
+
+class BestOfferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BestOffer
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        if instance.state_id == 2:
+            return {}
+        return {
+            'id': instance.id,
+            'name': instance.name,
+            'description': instance.description,
+            'date_of_created': instance.date_of_created,
+            'state': instance.state.id,
+            'state_name': instance.state.name,
+            'image_url': instance.product.get_image_url,
         }

@@ -31,6 +31,7 @@ product_router.register(r'product_inventory', product.ProductInventoryView, base
 product_router.register(r'product', product.ProductView, basename='product-api')
 product_router.register(r'discount', discount.DiscountView, basename='discount-api')
 product_router.register(r'top_product', product.TopProductView, basename='top-product-api')
+product_router.register(r'best_offer', product.BestOfferView, basename='best-offer-api')
 
 # user api urls
 user_router.register(r'users', users.UserView, basename='user-api')

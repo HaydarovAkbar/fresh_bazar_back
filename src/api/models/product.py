@@ -98,3 +98,35 @@ class TopProduct(models.Model):
         self.save()
         return True
 
+
+class BestOffer(models.Model):
+    name = models.CharField(_("Best Offer Name"), max_length=50)
+    image = models.ImageField(_("Best Offer Image"), upload_to="best_offer", null=True)
+    description = models.TextField(_("Best Offer Description"), null=True, blank=True)
+    date_of_created = models.DateTimeField(auto_now_add=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Best Offer")
+        verbose_name_plural = _("Best Offers")
+        ordering = ("id",)
+        db_table = "best_offer"
+        indexes = [
+            models.Index(fields=["name"]),
+        ]
+
+    def __str__(self):
+        return self.name
+
+    def update_best_offer(self, product):
+        self.product = product
+        self.save()
+        return True
+
+    @property
+    def get_image_url(self):
+        # "Returns the image url."
+        try:
+            return '%s%s' % (settings.HOST, self.image.url)
+        except ValueError:
+            return ''

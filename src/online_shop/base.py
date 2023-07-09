@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'middleware.helper.SqlInectionMiddleware',
+    # 'middleware.helper.SqlInectionMiddleware',
 ]
 
 ROOT_URLCONF = 'online_shop.urls'
