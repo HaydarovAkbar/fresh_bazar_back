@@ -112,3 +112,19 @@ class PaymentTypeSerializer(serializers.ModelSerializer):
             'state': instance.state.id,
             'state_name': instance.state.name,
         }
+
+
+class UnitOfMeasureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = info.UnitOfMeasure
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'name': instance.name,
+            'abbreviation': instance.abbreviation,
+            'date_of_created': instance.date_of_created,
+            'state': instance.state.id,
+            'state_name': instance.state.name,
+        }

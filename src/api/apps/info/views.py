@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .serializers import StateSerializer, CountrySerializer, DistrictSerializer, RegionSerializer
-from api.models.info import State, Country, District, Region
+from .serializers import StateSerializer, CountrySerializer, DistrictSerializer, RegionSerializer, \
+    UnitOfMeasureSerializer
+from api.models.info import State, Country, District, Region, UnitOfMeasure
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter
 from rest_framework.parsers import MultiPartParser
@@ -86,4 +87,26 @@ class RegionView(viewsets.ModelViewSet):
         pk_kwargs = kwargs['pk']
         region = Region.objects.get(id=pk_kwargs)
         serializer = RegionSerializer(region)
+        return Response(serializer.data)
+
+
+class UnitOfMeasureView(viewsets.ModelViewSet):
+    queryset = UnitOfMeasure.objects.all()
+    serializer_class = UnitOfMeasureSerializer
+    filter_backends = [SearchFilter]
+    # permission_classes = AllowAny
+    parser_classes = (MultiPartParser,)
+    http_method_names = ['get', 'post', 'put', 'delete']
+    search_fields = ['name', 'description']
+
+    def retrieve(self, request, *args, **kwargs):
+        if kwargs['pk'] == '0':
+            return Response({
+                'name': None,
+                'abbreviation': None,
+                'state': 1,
+            })
+        pk_kwargs = kwargs['pk']
+        state = State.objects.get(id=pk_kwargs)
+        serializer = StateSerializer(state)
         return Response(serializer.data)
