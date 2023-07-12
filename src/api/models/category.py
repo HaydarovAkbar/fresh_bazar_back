@@ -10,7 +10,7 @@ class ProductCategory(models.Model):
     description = models.TextField(_("Product Category Description"))
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
-    image_url = models.ImageField(_("Product Category Image URL"), upload_to="product_category")
+    image = models.ImageField(_("Product Category Image URL"), upload_to="product_category")
     deleted_at = models.DateTimeField(null=True, blank=True)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
 
@@ -36,6 +36,6 @@ class ProductCategory(models.Model):
     def get_image_url(self):
         # "Returns the image url."
         try:
-            return '%s%s' % (settings.HOST, self.image_url.url)
+            return '%s%s' % (settings.HOST, self.image.url)
         except ValueError:
             return ''

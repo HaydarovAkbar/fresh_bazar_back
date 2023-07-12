@@ -30,3 +30,16 @@ class ProductCategoryView(viewsets.ModelViewSet):
     parser_classes = (MultiPartParser,)
     http_method_names = ['get', 'post', 'put', 'delete']
     search_fields = ['name', 'description']
+
+    def retrieve(self, request, *args, **kwargs):
+        if kwargs['pk'] == '0':
+            return Response({
+                'name': None,
+                'description': None,
+                'image': None,
+                'state': 1,
+            })
+        pk_kwargs = kwargs['pk']
+        category = ProductCategory.objects.get(id=pk_kwargs)
+        serializer = ProductCategorySerializer(category)
+        return Response(serializer.data)

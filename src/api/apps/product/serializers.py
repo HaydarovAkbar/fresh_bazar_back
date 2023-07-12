@@ -92,5 +92,5 @@ class BestOfferSerializer(serializers.ModelSerializer):
             'date_of_created': instance.date_of_created,
             'state': instance.state.id,
             'state_name': instance.state.name,
-            'image_url': instance.product.get_image_url,
+            'image_url': instance.get_image_url,
         }

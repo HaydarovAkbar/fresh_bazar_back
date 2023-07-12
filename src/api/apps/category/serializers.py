@@ -16,6 +16,6 @@ class ProductCategorySerializer(serializers.ModelSerializer):
             'state': instance.state.id,
             'date_of_created': instance.date_of_created,
             'updated_at': instance.updated_at,
-            'image_url': instance.get_image_url,
+            'image': instance.get_image_url,
         }
 

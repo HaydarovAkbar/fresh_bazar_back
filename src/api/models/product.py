@@ -38,7 +38,7 @@ class Product(models.Model):
     description = models.TextField(_("Product Description"), null=True, blank=True)
     price = models.DecimalField(_("Product Price"), max_digits=10, decimal_places=2)
     uuid = models.UUIDField(_("Product UUID"), unique=True, editable=False, auto_created=True, null=True)
-    sku = models.CharField(_("Product SKU"), max_length=50)
+    sku = models.CharField(_("Product SKU"), max_length=50, null=True, blank=True)
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -47,6 +47,7 @@ class Product(models.Model):
     product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE, null=True)
     discount = models.ForeignKey(Discount, on_delete=models.CASCADE, null=True)
     state = models.ForeignKey(State, on_delete=models.CASCADE, null=True)
+    views = models.IntegerField(_("Product Views"), default=0)
 
     def __str__(self):
         return self.name
@@ -117,11 +118,6 @@ class BestOffer(models.Model):
 
     def __str__(self):
         return self.name
-
-    def update_best_offer(self, product):
-        self.product = product
-        self.save()
-        return True
 
     @property
     def get_image_url(self):
