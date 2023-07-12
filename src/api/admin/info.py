@@ -1,7 +1,7 @@
 from django.contrib import admin
 from api.models.info import State, Country, Region, District, Language
 from api.models.organizations import Organization
-from api.models.product import ProductInventory, Product, TopProduct
+from api.models.product import ProductInventory, Product, TopProduct, BestOffer, RatingProduct, WeeklyProduct
 from api.models.category import ProductCategory
 from api.models.discount import Discount
 from api.models.news import News, Banner
@@ -20,3 +20,6 @@ admin.site.register(TopProduct)
 admin.site.register(Discount)
 admin.site.register(News)
 admin.site.register(Banner)
+admin.site.register(BestOffer)
+admin.site.register(RatingProduct)
+admin.site.register(WeeklyProduct)
