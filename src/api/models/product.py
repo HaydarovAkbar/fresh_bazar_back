@@ -147,3 +147,26 @@ class RatingProduct(models.Model):
         self.rating = rating
         self.save()
         return True
+
+
+class WeeklyProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    date_of_created = models.DateTimeField(auto_now_add=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Weekly Product")
+        verbose_name_plural = _("Weekly Products")
+        ordering = ("id",)
+        db_table = "weekly_product"
+        indexes = [
+            models.Index(fields=["product"]),
+        ]
+
+    def __str__(self):
+        return self.product.name
+
+    def update_top_product(self, product):
+        self.product = product
+        self.save()
+        return True

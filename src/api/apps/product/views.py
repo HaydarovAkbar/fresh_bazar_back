@@ -6,10 +6,10 @@ from django_elasticsearch_dsl_drf.filter_backends import (
 from rest_framework.filters import SearchFilter
 from rest_framework.parsers import MultiPartParser
 from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
-from api.models.product import Product, ProductInventory, TopProduct, BestOffer, RatingProduct
+from api.models.product import Product, ProductInventory, TopProduct, BestOffer, RatingProduct, WeeklyProduct
 from api import documents
 from .serializers import ProductSerializer, ProductInventorySerializer, TopProductSerializer, BestOfferSerializer, \
-    RatingProductSerializer
+    RatingProductSerializer, WeeklyProductSerializer
 from api.pagination import DefaultPagination
 from rest_framework.response import Response
 
@@ -143,6 +143,25 @@ class RatingProductView(viewsets.ModelViewSet):
                 # 'id': 0,
                 'product': 1,
                 'rating': 5,
+                'state': 1,
+            })
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
+
+class WeeklyProductView(viewsets.ModelViewSet):
+    queryset = WeeklyProduct.objects.all()
+    serializer_class = WeeklyProductSerializer
+    # permission_classes = AllowAny
+    parser_classes = (MultiPartParser,)
+    http_method_names = ['get', 'post', 'put', 'delete']
+
+    def retrieve(self, request, *args, **kwargs):
+        if kwargs['pk'] == '0':
+            return Response({
+                'product': 1,
+                'discount': None,
                 'state': 1,
             })
         instance = self.get_object()

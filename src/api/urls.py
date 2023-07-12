@@ -33,6 +33,7 @@ product_router.register(r'discount', discount.DiscountView, basename='discount-a
 product_router.register(r'top_product', product.TopProductView, basename='top-product-api')
 product_router.register(r'best_offer', product.BestOfferView, basename='best-offer-api')
 product_router.register(r'product_rating', product.RatingProductView, basename='product-rating-api')
+product_router.register(r'weekly_product', product.WeeklyProductView, basename='weekly-product-api')
 
 # user api urls
 user_router.register(r'users', users.UserView, basename='user-api')
