@@ -104,3 +104,20 @@ class BestOfferSerializer(serializers.ModelSerializer):
             'state_name': instance.state.name,
             'image': instance.get_image_url,
         }
+
+
+class RatingProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RatingProduct
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'rating': instance.rating,
+            'date_of_created': instance.date_of_created,
+            'updated_at': instance.updated_at,
+            'deleted_at': instance.deleted_at,
+            'product': instance.product.id,
+            'user': instance.user.id,
+        }
