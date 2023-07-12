@@ -104,10 +104,8 @@ class BestOfferView(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         if kwargs['pk'] == '0':
             return Response({
-                # 'id': 0,
-                'name': None,
-                'description': None,
-                'image': None,
+                'product': 1,
+                'discount': None,
                 'state': 1,
             })
         instance = self.get_object()
