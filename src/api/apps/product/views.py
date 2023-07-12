@@ -39,7 +39,7 @@ class ProductView(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         if kwargs['pk'] == '0':
-            return {
+            return Response({
                 # 'id': 0,
                 'name': None,
                 'description': None,
@@ -50,7 +50,7 @@ class ProductView(viewsets.ModelViewSet):
                 'inventory': None,
                 'discount': None,
                 'state': 1,
-            }
+            })
         instance = self.get_object()
         instance.views += 1
         instance.save()
@@ -67,10 +67,10 @@ class ProductInventoryView(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         if kwargs['pk'] == '0':
-            return {
+            return Response({
                 # 'id': 0,
                 'quantity': 1,
-            }
+            })
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -85,10 +85,10 @@ class TopProductView(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         if kwargs['pk'] == '0':
-            return {
+            return Response({
                 # 'id': 0,
                 'product': 1,
-            }
+            })
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -103,13 +103,13 @@ class BestOfferView(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         if kwargs['pk'] == '0':
-            return {
+            return Response({
                 # 'id': 0,
                 'name': None,
                 'description': None,
                 'image': None,
                 'state': 1,
-            }
+            })
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
@@ -141,12 +141,12 @@ class RatingProductView(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         if kwargs['pk'] == '0':
-            return {
+            return Response({
                 # 'id': 0,
                 'product': 1,
                 'rating': 5,
                 'state': 1,
-            }
+            })
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
