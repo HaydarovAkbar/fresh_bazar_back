@@ -152,3 +152,5 @@ class RatingProduct(models.Model):
         self.rating = rating
         self.save()
         return True
+
+
