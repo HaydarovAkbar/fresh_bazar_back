@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from .discount import Discount
 from .category import ProductCategory
-from api.models.info import State
+from api.models.info import State, UnitOfMeasure
 
 
 class ProductInventory(models.Model):
@@ -47,6 +47,7 @@ class Product(models.Model):
     product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE, null=True)
     discount = models.ForeignKey(Discount, on_delete=models.CASCADE, null=True)
     state = models.ForeignKey(State, on_delete=models.CASCADE, null=True)
+    unit_of_measure = models.ForeignKey(UnitOfMeasure, on_delete=models.CASCADE, null=True)
     views = models.IntegerField(_("Product Views"), default=0)
 
     def __str__(self):

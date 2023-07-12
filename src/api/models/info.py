@@ -93,3 +93,18 @@ class PaymentType(models.Model):
         verbose_name = _("Payment Types")
         verbose_name_plural = _("Payment Types")
         db_table = "payment_types"
+
+
+class UnitOfMeasure(models.Model):
+    name = models.CharField(max_length=50, help_text=_("Unit of Measure Name"))
+    abbreviation = models.CharField(max_length=2, help_text=_("Unit of Measure Abbreviation"))
+    date_of_created = models.DateTimeField(auto_now_add=True, help_text=_("Date of Created"))
+    state = models.ForeignKey(State, on_delete=models.CASCADE, help_text=_("State"))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _("Unit of Measure")
+        verbose_name_plural = _("Units of Measure")
+        db_table = "units_of_measure"

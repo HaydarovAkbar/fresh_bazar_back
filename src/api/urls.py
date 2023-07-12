@@ -10,7 +10,7 @@ from api.apps.orders import views as order
 from api.apps.payments import views as payment
 from api.apps.users import views as users
 from api.apps.news import views as news
-
+from api.apps.suppliers import views as supplier
 
 router = routers.DefaultRouter()
 info_router = routers.DefaultRouter()
@@ -40,5 +40,8 @@ user_router.register(r'users', users.UserView, basename='user-api')
 # news api urls
 news_router.register(r'news', news.NewsView, basename='news-api')
 news_router.register(r'banner', news.BannerView, basename='banner-api')
+
+# supplier api urls
+router.register(r'supplier', supplier.SuppliersView, basename='supplier-api')
 
 urlpatterns = router.urls + info_router.urls + product_router.urls + user_router.urls + news_router.urls

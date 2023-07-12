@@ -13,6 +13,7 @@ class DiscountView(viewsets.ModelViewSet):
     serializer_class = DiscountSerializer
     parser_classes = (MultiPartParser,)
     http_method_names = ['get', 'post', 'put', 'delete']
+
     def retrieve(self, request, *args, **kwargs):
         if kwargs['pk'] == '0':
             return Response({
