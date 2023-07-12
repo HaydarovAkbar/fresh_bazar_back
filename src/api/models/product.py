@@ -42,7 +42,7 @@ class Product(models.Model):
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
-    image_url = models.ImageField(_("Product Image URL"), upload_to="product", null=True)
+    image = models.ImageField(_("Product Image URL"), upload_to="product", null=True)
     product_category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     product_inventory = models.ForeignKey(ProductInventory, on_delete=models.CASCADE, null=True)
     discount = models.ForeignKey(Discount, on_delete=models.CASCADE, null=True)
@@ -72,7 +72,7 @@ class Product(models.Model):
     def get_image_url(self):
         # "Returns the image url."
         try:
-            return '%s%s' % (settings.HOST, self.image_url.url)
+            return '%s%s' % (settings.HOST, self.image.url)
         except ValueError:
             return ''
 
@@ -126,3 +126,28 @@ class BestOffer(models.Model):
             return '%s%s' % (settings.HOST, self.image.url)
         except ValueError:
             return ''
+
+
+class RatingProduct(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    rating = models.IntegerField(_("Rating Product"), default=0)
+    date_of_created = models.DateTimeField(auto_now_add=True)
+    state = models.ForeignKey(State, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = _("Rating Product")
+        verbose_name_plural = _("Rating Products")
+        ordering = ("id",)
+        db_table = "rating_product"
+        indexes = [
+            models.Index(fields=["product"]),
+        ]
+
+    def __str__(self):
+        return self.product.name
+
+    def update_rating_product(self, rating):
+        self.rating = rating
+        self.save()
+        return True

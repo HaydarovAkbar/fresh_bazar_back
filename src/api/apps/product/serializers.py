@@ -1,5 +1,6 @@
+from django.db.models import Avg
 from rest_framework import serializers
-from api.models.product import Product, ProductInventory, TopProduct, BestOffer
+from api.models.product import Product, ProductInventory, TopProduct, BestOffer, RatingProduct
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -17,6 +18,13 @@ class ProductSerializer(serializers.ModelSerializer):
         if instance.state_id == 2:
             return {}
         else:
+            rating_all = RatingProduct.objects.filter(product_id=instance.id)
+            rating_product = rating_all.aggregate(Avg('rating'))
+            rating_count = rating_all.count()
+            if rating_count == 0:
+                rating_product['rating__avg'] = 0
+            else:
+                rating_product['rating__avg'] = round(rating_product['rating__avg'] / rating_count * 5, 0)
             return {
                 'id': instance.id,
                 'uuid': instance.uuid,
@@ -36,6 +44,8 @@ class ProductSerializer(serializers.ModelSerializer):
                 'state': instance.state.id,
                 'product_category': instance.product_category.id,
                 'product_inventory': instance.product_inventory.id,
+                'views': instance.views,
+                'rating': rating_product['rating__avg'],
             }
 
 
@@ -92,5 +102,5 @@ class BestOfferSerializer(serializers.ModelSerializer):
             'date_of_created': instance.date_of_created,
             'state': instance.state.id,
             'state_name': instance.state.name,
-            'image_url': instance.get_image_url,
+            'image': instance.get_image_url,
         }

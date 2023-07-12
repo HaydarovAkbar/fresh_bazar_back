@@ -8,7 +8,7 @@ class News(models.Model):
     description = models.TextField()
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
-    image_url = models.ImageField(upload_to="news")
+    image = models.ImageField(upload_to="news")
     state = models.ForeignKey(State, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -28,7 +28,7 @@ class News(models.Model):
     def get_image_url(self):
         # "Returns the image url."
         try:
-            return '%s%s' % (settings.HOST, self.image_url.url)
+            return '%s%s' % (settings.HOST, self.image.url)
         except ValueError:
             return ''
 
@@ -38,7 +38,7 @@ class Banner(models.Model):
     description = models.TextField()
     date_of_created = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True, blank=True)
-    image_url = models.ImageField(upload_to="banner")
+    image = models.ImageField(upload_to="banner")
     state = models.ForeignKey(State, on_delete=models.CASCADE)
     configuration = models.CharField(max_length=255, null=True, blank=True)
 
@@ -59,6 +59,6 @@ class Banner(models.Model):
     def get_image_url(self):
         # "Returns the image url."
         try:
-            return '%s%s' % (settings.HOST, self.image_url.url)
+            return '%s%s' % (settings.HOST, self.image.url)
         except ValueError:
             return ''

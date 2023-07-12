@@ -24,7 +24,7 @@ class NewsSerializer(serializers.ModelSerializer):
                 'description': instance.description,
                 'date_of_created': instance.date_of_created,
                 'updated_at': instance.updated_at,
-                'image_url': instance.get_image_url,
+                'image': instance.get_image_url,
                 'state_name': instance.state.name,
                 'state': instance.state.id,
             }
@@ -50,7 +50,7 @@ class BannerSerializer(serializers.ModelSerializer):
                 'description': instance.description,
                 'date_of_created': instance.date_of_created,
                 'updated_at': instance.updated_at,
-                'image_url': instance.get_image_url,
+                'image': instance.get_image_url,
                 'state_name': instance.state.name,
                 'state': instance.state.id,
             }
