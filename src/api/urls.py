@@ -25,6 +25,7 @@ info_router.register(r'state', info.StateView, basename='state-api')
 info_router.register(r'country', info.CountryView, basename='country-api')
 info_router.register(r'district', info.DistrictView, basename='district-api')
 info_router.register(r'region', info.RegionView, basename='region-api')
+info_router.register(r'unit_of_measure', info.UnitOfMeasureView, basename='unit_of_measure-api')
 
 # product api urls
 product_router.register(r'product_inventory', product.ProductInventoryView, basename='product-inventory-api')
