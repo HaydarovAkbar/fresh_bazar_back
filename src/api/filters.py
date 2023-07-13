@@ -9,10 +9,12 @@ class UserFilter(django_filters.FilterSet):
         model = User
         fields = ['username', 'email', 'last_login']
 
+
 class CategoryFilter(BaseFilterBackend):
     """
     Filter that only allows users to see their own objects.
     """
+
     def filter_queryset(self, request, queryset, view):
         param = request.QUERY_PARAMS.get('product_category', None)
         if param is not None:

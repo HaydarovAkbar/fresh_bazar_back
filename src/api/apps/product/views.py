@@ -9,9 +9,11 @@ from django_elasticsearch_dsl_drf.viewsets import DocumentViewSet
 from api.models.product import Product, ProductInventory, TopProduct, BestOffer, RatingProduct, WeeklyProduct
 from api import documents
 from .serializers import ProductSerializer, ProductInventorySerializer, TopProductSerializer, BestOfferSerializer, \
-    RatingProductSerializer, WeeklyProductSerializer
+    RatingProductSerializer, WeeklyProductSerializer, FilterByProductCategorySerializer
 from api.pagination import DefaultPagination
 from rest_framework.response import Response
+from api.filters import CategoryFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ProductView(viewsets.ModelViewSet):
@@ -27,12 +29,12 @@ class ProductView(viewsets.ModelViewSet):
     search_fields = (
         'name',
         'description',
-        'price',
     )
     # filter_fields = {
-    #     'name': 'name.raw',
+    #     'product_category': 'product_category.id',
     # }
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, DjangoFilterBackend]
+    filter_fields = ['product_category']
     # permission_classes = AllowAny
     parser_classes = (MultiPartParser,)
     http_method_names = ['get', 'post', 'put', 'delete']
@@ -167,3 +169,24 @@ class WeeklyProductView(viewsets.ModelViewSet):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+
+
+class FilterByProductCategoryView(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = FilterByProductCategorySerializer
+    pagination_class = DefaultPagination
+    filter_backends = [DjangoFilterBackend]
+    parser_classes = (MultiPartParser,)
+    filter_fields = ['product_category']
+    http_method_names = ['post']
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        queryset = Product.objects.filter(product_category__id=data['product_category'])
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(
+            {
+                'status': True,
+                'message': 'Filter product successfully',
+                'data': serializer.data,
+            }, status=201)
